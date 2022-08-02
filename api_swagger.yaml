@@ -1,0 +1,221 @@
+swagger: '2.0'
+info:
+  description: はんぺんシステム
+  version: 1.0.0
+  title: Swagger はんぺんシステム
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: petstore.swagger.io
+basePath: /v2
+tags:
+  - name: monthly
+    description: 月別一覧
+  - name: man-hours
+    description: 工数入力
+schemes:
+  - https
+  - http
+paths:
+  /getDayinfo:
+    get:
+      description: 社員情報データを取ってくる
+      tags:
+        - monthly
+      produces:
+        - application/json
+      parameters:
+        - name: syain_num
+          in: query
+          type: string
+          required: true
+          description: 社員番号
+        - name: workday
+          in: query
+          type: string
+          required: true
+          description: 年月日
+      responses:
+        '200':
+          description: 成功時
+          schema:
+            type: object
+            properties:
+              serial num:
+                type: string
+              syainname:
+                type: string
+              department:
+                type: string
+              matter:
+                type: string
+              Process:
+                type: string
+        '400':
+          description: パラメータ不足
+          schema:
+            type: object
+            properties:
+              error_message:
+                type: string
+  /getKouban:
+    get:
+      description: 工番マスタ情報をとってくる
+      tags:
+        - monthly
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 成功時
+          schema:
+            type: object
+        '400':
+          description: パラメータ不足
+          schema:
+            type: object
+            properties:
+              error_message:
+                type: string
+  /getDivision:
+    get:
+      description: 事業部マスタ情報をとってくる
+      tags:
+        - monthly
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 成功時
+          schema:
+            type: object
+        '400':
+          description: パラメータ不足
+          schema:
+            type: object
+            properties:
+              error_message:
+                type: string
+  /getSelectDayinfo:
+    get:
+      description: 選択行押下時に社員情報データを取ってくる
+      tags:
+        - monthly
+      produces:
+        - application/json
+      parameters:
+        - name: serial num
+          in: query
+          type: string
+          required: true
+          description: 連番
+      responses:
+        '200':
+          description: 成功時
+          schema:
+            type: object
+            properties:
+              renban:
+                type: string
+              syainname:
+                type: string
+              department:
+                type: string
+              matter:
+                type: string
+              Process:
+                type: string
+        '400':
+          description: パラメータ不足
+          schema:
+            type: object
+            properties:
+              error_message:
+                type: string
+  /postDaytask:
+    post:
+      description: 日別作業入力すると工数、事業部、案件名、工程を返してくれる
+      tags:
+        - man-hours
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              productionCosts:
+                type: integer
+              department:
+                type: string
+              matter:
+                type: string
+              Process:
+                type: string
+              biko:
+                type: string
+      responses:
+        '200':
+          description: 成功時
+          schema:
+            type: object
+            properties:
+              productionCosts:
+                type: integer
+              department:
+                type: string
+              matter:
+                type: string
+              Process:
+                type: string
+        '400':
+          description: パラメータ不足
+          schema:
+            type: object
+            properties:
+              error_message:
+                type: string
+  /deleteDayinfo:
+    delete:
+      description: 社員稼働登録情報の削除
+      tags:
+        - man-hours
+      produces:
+        - application/json
+      parameters:
+        - name: serial num
+          in: query
+          type: string
+          required: true
+          description: 連番
+      responses:
+        '200':
+          description: 成功時
+          schema:
+            type: object
+            properties:
+              renban:
+                type: string
+              syainname:
+                type: string
+              department:
+                type: string
+              matter:
+                type: string
+              Process:
+                type: string
+        '400':
+          description: パラメータ不足
+          schema:
+            type: object
+            properties:
+              error_message:
+                type: string
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
